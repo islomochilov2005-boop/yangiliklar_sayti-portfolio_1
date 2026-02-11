@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="section hero-section" xmlns="http://www.w3.org/1999/html">
+    <div class="container">
+        <div class="hero">
+            <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=600&fit=crop"
+                alt="AI Technology" class="hero-bg">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <div class="hero-main">
+                    <span class="badge badge-ai">Eng so'nggi yangiliklar</span>
+                    <h1>{{ songgi.title|truncatewords:5 }}</h1>
+                    <p>{{ songgi.body|truncatewords:20 }}</p>
+                    <div class="author-info">
+                        <div class="author-details">
+                            <strong>{{ songgi.author }}</strong>
+                            <span class="read-time">👁 {{ songgi.views }}</span>
+                        </div>
+                    </div>
+                    <a href="{% url 'news_detail' songgi.pk %}" class="btn-hero">O'qish →</a>
+                </div>
+                <div class="hero-sidebar">
+                    {% if dasturlash_last %}
+                    <div class="hero-card">
+                        <a href="{% url 'news_detail' dasturlash_last.pk %}">
+                        <img src="{{ dasturlash_last.image.url }}" alt="Programming">
+                        <div class="hero-card-content">
+                            <span class="badge badge-programming">Dasturlash</span>
+                            <h3>{{ dasturlash_last.title }}</h3>
+                        </div>
+                        </a>
+                    </div>
+                    {% endif %}
+                    {% if gadjetlar_last %}
+                    <div class="hero-card">
+                        <a href="{% url 'news_detail' gadjetlar_last.pk %}">
+                        <img src="{{ gadjetlar_last.image.url }}" alt="Gadgets">
+                        <div class="hero-card-content">
+                            <span class="badge badge-gadget">Gadjetlar</span>
+                            <h3>{{ gadjetlar_last.title }}</h3>
+                        </div>
+                        </a>
+                    </div>
+                    {% endif %}
+                    {% if startaplar_last %}
+                    <div class="hero-card">
+                        <a href="{% url 'news_detail' startaplar_last.pk %}">
+                        <img src="{{ startaplar_last.image.url }}" alt="Startups">
+                        <div class="hero-card-content">
+                            <span class="badge badge-startup">Startaplar</span>
+                            <h3>{{ startaplar_last.title }}</h3>
+                        </div>
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TRENDING SECTION -->
+<section class="section trending-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">🔥 So'ngi yangiliklar</h2>
+            <a href="{% url 'all_news' %}" class="btn-secondary">Barchasi →</a>
+        </div>
+        <div class="cards-grid">
+            <!-- Card 1 -->
+            {% for last in news %}
+            <article class="article-card">
+                <div class="card-image">
+                    <a href="{% url 'news_detail' last.pk %}">
+                        <img src="{{ last.image.url }}" alt="AI">
+                    </a>
+                </div>
+                <div class="card-content">
+                    <a href="{% url 'news_detail' last.pk %}">
+                        <h3 class="card-title">{{ last.title|truncatewords:5 }}</h3>
+                    </a>
+                    <p class="card-excerpt">{{ last.body|truncatewords:20 }}</p>
+                        <div class="card-author">
+                            <span>{{ last.author }}</span>
+                        </div>
+                        <div class="card-stats">
+                            <span>👁{{ last.views }}</span>
+                        </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- CATEGORIES SECTION -->
+<section class="section categories-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">📚 Kategoriyalar</h2>
+        </div>
+
+        <div class="categories-grid">
+            {% for cat in categories %}
+            <a href="{% url 'category_detail' cat.slug %}" class="category-card">
+                <h3>{{ cat.name }}</h3>
+                <span class="cat-count">
+                    {{ cat.published_posts_count }} ta yangilik
+                </span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+
+<!-- NEWSLETTER SECTION -->
+<section class="section newsletter-section">
+    <div class="container">
+        <div class="newsletter-box">
+            <div class="newsletter-content">
+                <h2>📬 IT Yangiliklar Obuna</h2>
+                <p>Eng so'nggi IT yangiliklar va maqolalarni bevosita pochtangizga oling</p>
+            </div>
+            <form class="newsletter-form" id="newsletterForm">
+                <input type="email" placeholder="Email manzilingiz" required>
+                <button type="submit" class="btn-primary">Obuna bo'lish</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock content %}

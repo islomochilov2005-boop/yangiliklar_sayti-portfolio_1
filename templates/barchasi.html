@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static%}
+
+
+{% block content %}
+<section class="section trending-section">
+    <div class="container">
+        <div class="cards-grid">
+            {% for last in news %}
+            <article class="article-card">
+                <div class="card-image">
+                    <a href="{% url 'news_detail' last.pk %}">
+                        <img src="{{ last.image.url }}" alt="AI">
+                    </a>
+                </div>
+                <div class="card-content">
+                    <a href="{% url 'news_detail' last.pk %}">
+                        <h3 class="card-title">{{ last.title|truncatewords:5 }}</h3>
+                    </a>
+                    <p class="card-excerpt">{{ last.body|truncatewords:20 }}</p>
+                    <div class="card-meta">
+                        <div class="card-author">
+                            <span>{{ last.author }}</span>
+                        </div>
+                        <div class="card-stats">
+                            <span>👁{{ last.views }}</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock content %}

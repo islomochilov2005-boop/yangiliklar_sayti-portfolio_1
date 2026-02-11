@@ -1,0 +1,137 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="O'zbekistondagi eng so'nggi IT yangiliklari va texnologiya maqolalari">
+    <title>IT News UZ - O'zbekiston IT Yangiliklari</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- CSS File -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <span class="gradient-text">IT NEWS UZ</span>
+                </a>
+
+                <ul class="nav-links">
+                    <a href="{% url 'bosh_sahifa' %}" class="active">Bosh sahifa</a>
+                    <li class="dropdown">
+                        <a href="#">Kategoriyalar <span class="arrow">▼</span></a>
+                        <ul class="dropdown-menu">
+                            {% for category in categories %}
+                            <li><a href="{% url 'category_detail' category.slug %}">{{ category.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li><a href="{% url 'boglanish' %}">Bog'lanish</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <button class="icon-btn" id="themeToggle" title="Tema almashtirish">🌙</button>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <span class="gradient-text">IT NEWS UZ</span>
+            <button class="close-btn" id="closeMenuBtn">✕</button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="#">Bosh sahifa</a></li>
+            <li><a href="#">Sun'iy Intellekt</a></li>
+            <li><a href="#">Dasturlash</a></li>
+            <li><a href="#">Kiberhavfsizlik</a></li>
+            <li><a href="#">Startaplar</a></li>
+            <li><a href="#">Gadjetlar</a></li>
+            <li><a href="#">O'zbek IT</a></li>
+            <li><a href="#">Jamiyat</a></li>
+            <li><a href="#">Bog'lanish</a></li>
+        </ul>
+    </div>
+
+    <!-- SEARCH MODAL -->
+    <div class="search-modal" id="searchModal">
+        <div class="search-modal-content">
+            <button class="close-btn" id="closeSearchBtn">✕</button>
+            <h2>Qidirish</h2>
+            <input type="text" class="search-input" placeholder="Maqolalarni qidirish..." id="searchInput">
+        </div>
+    </div>
+
+    <!-- LIVE TICKER -->
+    <div class="live-ticker">
+        <div class="ticker-content">
+            {% for new in news %}
+            <a href="{% url 'news_detail' new.pk %}"><span>{{ new.title|truncatewords:5 }}</span></a>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+    {% block content %}
+
+
+
+    {% endblock content %}
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <span class="gradient-text footer-logo">IT NEWS UZ</span>
+                    <p> BU IT News sayti mening birinchi loyham
+                    </p>
+
+                </div>
+                <div class="footer-links">
+                    <h4>Kategoriyalar</h4>
+                    <ul>
+                        {% for cat in categories %}
+                        <li><a href="{% url 'category_detail' cat.slug %}">{{ cat.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <ul>
+                        <li><a href="{% url 'biz_haqimizda' %}">Biz haqimizda</a></li>
+                        <li><a href="{% url 'boglanish' %}">Bog'lanish</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 IT News UZ. Barcha huquqlar himoyalangan.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTopBtn" title="Yuqoriga">↑</button>
+
+    <!-- JavaScript File -->
+    {% block javascript %}
+    <script src="{% static 'js/main.js' %}"></script>
+    {% endblock javascript %}
+</body>
+
+</html>

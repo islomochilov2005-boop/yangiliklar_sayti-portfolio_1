@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="text-align: center; margin-top: 20px;">
+    <h1>{{ category.name }}</h1>
+
+    {% for new in news %}
+    <h3>
+        <a href="{% url 'news_detail' new.pk %}">{{ new.title }}</a>
+    </h3>
+    <br>
+    {% endfor %}
+</div>
+{% endblock content %}

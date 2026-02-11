@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div style="
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    min-height:70vh;
+    padding-top:60px;
+">
+
+  <div style="
+      width: 100%;
+      max-width: 700px;
+      text-align: center;
+  ">
+
+<h2 style="margin-bottom:25px; color:blue">Bog‘lanish</h2>
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <div style="margin-bottom:18px;">
+        <label>Ism</label><br>
+        {{ form.name }}
+      </div>
+
+      <div style="margin-bottom:18px;">
+        <label>Email</label><br>
+        {{ form.email }}
+      </div>
+
+      <div style="margin-bottom:18px;">
+        <label>Xabar</label><br>
+        {{ form.message }}
+      </div>
+
+      <button type="submit" style="
+    padding: 12px 24px;
+    font-size:16px;
+    background:#2563eb;   /* ko‘k rang */
+    color:white;          /* yozuv oq */
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    ">
+    Yuborish
+    </button>
+
+  </div>
+</div>
+
+<style>
+/* Faqat shu sahifa uchun — inputlarni kattalashtirish */
+input, textarea {
+    width: 100%;
+    max-width: 600px;
+    padding: 14px;
+    font-size: 16px;
+}
+textarea {
+    min-height: 220px;
+}
+</style>
+
+{% endblock %}
