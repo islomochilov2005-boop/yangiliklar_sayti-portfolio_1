@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const html = document.documentElement
 
   // Load saved theme
-  const savedTheme = localStorage.getItem("theme") || "light"
+  const savedTheme = localStorage.getItem("theme") || "dark"
   html.setAttribute("data-theme", savedTheme)
   if (themeToggle) {
     themeToggle.textContent = savedTheme === "dark" ? "☀️" : "🌙"
